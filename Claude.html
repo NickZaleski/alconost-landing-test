@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alconost - Make it Global | Localization & Translation Company</title>
+    <style>
+        :root {
+            --primary: #0175FF;
+            --primary-dark: #0056CC;
+            --secondary: #FB8C00;
+            --accent-orange: #FB8C00;
+            --dark: #212121;
+            --gray: #B4B4B4;
+            --light-gray: #f1f5f9;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #0175FF 0%, #0056CC 100%);
+            --gradient-2: linear-gradient(135deg, #FB8C00 0%, #E67E00 100%);
+            --gradient-3: linear-gradient(135deg, #0175FF 0%, #00A8FF 100%);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-selector {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-selector:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .language-selector:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(1, 117, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(1, 117, 255, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            margin: 4px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -25%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(1, 117, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(1, 117, 255, 0.1);
+            border: 1px solid rgba(1, 117, 255, 0.2);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta .primary-btn {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(1, 117, 255, 0.3);
+        }
+
+        .hero-cta .primary-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(1, 117, 255, 0.4);
+        }
+
+        .hero-cta .secondary-btn {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta .secondary-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(1, 117, 255, 0.3);
+        }
+
+        .trust-section {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .trust-section h3 {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .trust-logo:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+            border: 1px solid rgba(1, 117, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .service-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-card a:hover {
+            transform: translateX(5px);
+        }
+
+        /* Case Studies */
+        .case-studies {
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(1, 117, 255, 0.2);
+        }
+
+        .cases-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--light-gray);
+        }
+
+        .cases-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .cases-container::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 4px;
+        }
+
+        .cases-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .case-card {
+            flex: 0 0 350px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .case-card-header {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .case-card-body {
+            padding: 2rem;
+        }
+
+        .case-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-card .industry {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .case-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .case-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Technology Section */
+        .technology {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .tech-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .tech-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+        }
+
+        .tech-feature {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-feature:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #e6f3ff 100%);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(1, 117, 255, 0.1);
+        }
+
+        .tech-icon {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .tech-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .tech-content p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* People Section */
+        .people {
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .people-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .people-intro h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto 4rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .team-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-card h4 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .team-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Setup Options */
+        .setup-options {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .setup-options h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .setup-card {
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            border: 2px solid rgba(1, 117, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .setup-card:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #ffffff 0%, #e6f3ff 100%);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(1, 117, 255, 0.15);
+        }
+
+        .setup-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Order Form */
+        .order-form {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .form-container .subheading {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(1, 117, 255, 0.1);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-checkbox input {
+            margin-top: 0.25rem;
+        }
+
+        .form-checkbox label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(1, 117, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-tagline {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .nav-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 767px) {
+            nav {
+                padding: 1rem;
+            }
+            
+            .nav-actions {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 1rem 3rem;
+            }
+            
+            .services-grid,
+            .tech-features,
+            .team-grid,
+            .setup-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cases-container {
+                padding: 0 1rem;
+            }
+            
+            .case-card {
+                flex: 0 0 280px;
+            }
+        }
+
+        /* Spotlight Section */
+        .spotlight {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .spotlight-item {
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(1, 117, 255, 0.1);
+        }
+
+        .spotlight-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .spotlight-icon {
+            font-size: 2rem;
+        }
+
+        .spotlight-content h4 {
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .spotlight-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Customer Logos */
+        .customer-logos {
+            padding: 3rem 2rem;
+            background: var(--light-gray);
+        }
+
+        .logos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0.7;
+        }
+
+        .logos-container div {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="alconost-logo.svg" alt="Alconost Logo">
+            </div>
+            <div class="nav-menu">
+                <a href="#services">Services</a>
+                <a href="#cases">Use Cases</a>
+                <a href="#technology">Technology</a>
+                <a href="#about">About</a>
+            </div>
+            <div class="nav-actions">
+                <select class="language-selector">
+                    <option>🌐 EN</option>
+                    <option>🌐 ES</option>
+                    <option>🌐 FR</option>
+                    <option>🌐 DE</option>
+                </select>
+                <a href="#order" class="cta-button">Request a Quote</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content animate-in">
+            <div class="hero-badge">Localization & Translation Company</div>
+            <h1>Grow across global markets with localization.</h1>
+            <p class="subtitle">From apps to games to enterprise software — scale to 120+ languages with tech-enabled professional localization services.</p>
+            <div class="hero-cta">
+                <a href="#order" class="primary-btn">Request a Quote</a>
+                <a href="#services" class="secondary-btn">Explore Services</a>
+            </div>
+            <div class="trust-section">
+                <h3>Trusted by Global Leaders</h3>
+                <div class="trust-logos">
+                    <div class="trust-logo">TikTok</div>
+                    <div class="trust-logo">Airalo</div>
+                    <div class="trust-logo">JetBrains</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2 class="section-title animate-in">What We Do Best</h2>
+        <div class="services-grid">
+            <div class="service-card animate-in">
+                <h3>Software & Product Localization</h3>
+                <p>Seamless localization for UIs and updates — always native, always consistent.</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>Game Localization</h3>
+                <p>Authentic gameplay in every language with cultural adaptation, voice-over, and testing.</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>Marketing & Content Translation</h3>
+                <p>Your brand voice, perfectly localized — from ad copy to blog content.</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>Media Localization</h3>
+                <p>Printable media, PowerPoint, PDFs - all your media assets localized professionally.</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>Localization Testing & QA</h3>
+                <p>Native-language testing to ensure quality, accuracy, and flawless UX.</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>AI-Enhanced Translation Solutions</h3>
+                <p>AI + humans = better translations, lower costs, faster delivery</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>Localization Engineering and AI</h3>
+                <p>Products, processes, LLMs, finetuning, model deployment, human-in-the-loop</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>Enterprise Language Solutions</h3>
+                <p>Tailored localization strategies — built for your tech ecosystem, content team, and global ambitions.</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="service-card animate-in">
+                <h3>Professional Translation Service 24/7 (Nitro)</h3>
+                <p>Upload → Translate → Done. Fast, accurate human translations with no overhead</p>
+                <a href="#">Learn more →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="cases" class="case-studies">
+        <h2 class="section-title animate-in">Case Studies</h2>
+        <div class="filter-tabs animate-in">
+            <div class="filter-tab active">All</div>
+            <div class="filter-tab">SaaS</div>
+            <div class="filter-tab">Mobile Apps</div>
+            <div class="filter-tab">Games</div>
+            <div class="filter-tab">Enterprise</div>
+            <div class="filter-tab">Startups</div>
+        </div>
+        <div class="cases-container">
+            <div class="case-card">
+                <div class="case-card-header">📱</div>
+                <div class="case-card-body">
+                    <h4>TikTok</h4>
+                    <p class="industry">Social Media</p>
+                    <p>Scaled to 40+ languages with fast-paced, always-on localization across mobile, web, and marketing content.</p>
+                    <a href="#">Read case study →</a>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-card-header">✈️</div>
+                <div class="case-card-body">
+                    <h4>Airalo</h4>
+                    <p class="industry">Travel Tech / eSIM</p>
+                    <p>Automated localization workflow for a rapidly evolving mobile product. Reduced time-to-market and ensured translation consistency.</p>
+                    <a href="#">Read case study →</a>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-card-header">💻</div>
+                <div class="case-card-body">
+                    <h4>JetBrains</h4>
+                    <p class="industry">Developer Tools</p>
+                    <p>Streamlined localization via Git-based workflows, ensuring continuous delivery in 10+ languages.</p>
+                    <a href="#">Read case study →</a>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-card-header">✈️</div>
+                <div class="case-card-body">
+                    <h4>Plane Finder</h4>
+                    <p class="industry">Real-Time Data / B2C SaaS</p>
+                    <p>Localized app UI and help content to support global expansion and enhance UX in new markets.</p>
+                    <a href="#">Read case study →</a>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-card-header">📚</div>
+                <div class="case-card-body">
+                    <h4>Memrise</h4>
+                    <p class="industry">EdTech</p>
+                    <p>Blended human and AI-enhanced workflows to scale language learning content across markets.</p>
+                    <a href="#">Read case study →</a>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-card-header">🎮</div>
+                <div class="case-card-body">
+                    <h4>Mystery Dungeon</h4>
+                    <p class="industry">Gaming</p>
+                    <p>Culturally adapted RPG game dialogue, UI, and voice-over in 12 languages with native QA.</p>
+                    <a href="#">Read case study →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="technology">
+        <h2 class="section-title animate-in">Technology that Works for You</h2>
+        <div class="tech-intro animate-in">
+            <p>We recommend the right localization platforms for your needs and configure them perfectly. Already have a platform? We maximize its potential. Switch anytime—your content stays yours.</p>
+        </div>
+        
+        <h3 class="section-title" style="font-size: 1.8rem;">Alconost Technology Stack Features</h3>
+        <div class="tech-features">
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">🔄</div>
+                <div class="tech-content">
+                    <h4>Continuous Localization</h4>
+                    <p>Sync translations with every code release—automated workflows for CI/CD pipelines via Git, Jenkins, or your deployment tools.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">👥</div>
+                <div class="tech-content">
+                    <h4>Team Collaboration Setup</h4>
+                    <p>Configure real-time workspaces where your team, our linguists, and reviewers collaborate seamlessly.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">⚙️</div>
+                <div class="tech-content">
+                    <h4>Workflows and Automation</h4>
+                    <p>Set up custom workflows by content type—marketing gets human touch, documentation gets MTPE, UI stays consistent.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">💾</div>
+                <div class="tech-content">
+                    <h4>Translation Memory & Glossaries</h4>
+                    <p>Build and maintain your linguistic assets—ensuring terminology consistency across updates and product lines.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">✅</div>
+                <div class="tech-content">
+                    <h4>Multi-Layer Quality Gates</h4>
+                    <p>Design review workflows with automated checks, linguistic validation, and in-context testing before anything goes live.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">🔗</div>
+                <div class="tech-content">
+                    <h4>Deep Integrations</h4>
+                    <p>Connect your entire ecosystem—Figma for design, Slack for notifications, Jira for issues, GitHub for code.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">💻</div>
+                <div class="tech-content">
+                    <h4>API & CLI Configuration</h4>
+                    <p>Set up programmatic access for your developers—automate everything from string upload to translation retrieval.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">🤖</div>
+                <div class="tech-content">
+                    <h4>AI and Machine Translation and MTPE</h4>
+                    <p>Combine AI efficiency with human oversight to balance cost and quality.</p>
+                </div>
+            </div>
+            <div class="tech-feature animate-in">
+                <div class="tech-icon">📁</div>
+                <div class="tech-content">
+                    <h4>Universal File Support</h4>
+                    <p>From JSON to XLIFF, from React to Unity—we configure platforms to handle your exact file types.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#" class="cta-button">Talk to Expert</a>
+        </div>
+    </section>
+
+    <!-- People of Alconost Section -->
+    <section id="about" class="people">
+        <h2 class="section-title animate-in">People of Alconost</h2>
+        <div class="people-intro animate-in">
+            <h3>Technology isn't enough — our people make it work.</h3>
+            <p>For over 20 years, we've built localization solutions powered by real people and smart workflows.</p>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-card animate-in">
+                <div class="team-icon">👨‍🎓</div>
+                <h4>Linguists</h4>
+                <p>1,500+ native-speaking professionals across 120+ languages, ensuring cultural and contextual accuracy.</p>
+            </div>
+            <div class="team-card animate-in">
+                <div class="team-icon">🧑‍💼</div>
+                <h4>Localization Managers</h4>
+                <p>Integrate into your workflow, manage language assets, and drive quality — from apps to FinTech.</p>
+            </div>
+            <div class="team-card animate-in">
+                <div class="team-icon">🤝</div>
+                <h4>Vendor Managers</h4>
+                <p>Build flexible, industry-specialized teams for scalable, cost-effective localization.</p>
+            </div>
+            <div class="team-card animate-in">
+                <div class="team-icon">🧠</div>
+                <h4>Localization Engineers</h4>
+                <p>Implement automation, CI/CD, and MTPE — and tailor localization to your tech stack.</p>
+            </div>
+        </div>
+        
+        <div class="setup-options animate-in">
+            <h3>Choose your setup / Flexible Language Operations Teams</h3>
+            <div class="setup-grid">
+                <div class="setup-card">
+                    <h4>Hybrid</h4>
+                    <p>Augment your existing localization team. We add the specialists you need — linguists, reviewers, engineers, or managers.</p>
+                </div>
+                <div class="setup-card">
+                    <h4>Full-Service</h4>
+                    <p>Get our complete team to handle your localization end‑to‑end. Outsource your entire localization process to Alconost (BPO)</p>
+                </div>
+                <div class="setup-card">
+                    <h4>Outstaff</h4>
+                    <p>Hire our expert/linguist/data labelist long-term part or full time. No onboarding, training or management overhead, flexibility, scale as you need.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spotlight Section -->
+    <section class="spotlight">
+        <h2 class="section-title animate-in">🎙 Alconost in the Spotlight</h2>
+        <div class="spotlight-grid">
+            <div class="spotlight-item animate-in">
+                <div class="spotlight-icon">🎧</div>
+                <div class="spotlight-content">
+                    <h4>The Future of Localization with AI</h4>
+                    <p>Guest: Alex</p>
+                </div>
+            </div>
+            <div class="spotlight-item animate-in">
+                <div class="spotlight-icon">🎧</div>
+                <div class="spotlight-content">
+                    <h4>Localization Without Borders</h4>
+                    <p>Guest: Alex</p>
+                </div>
+            </div>
+            <div class="spotlight-item animate-in">
+                <div class="spotlight-icon">🤝</div>
+                <div class="spotlight-content">
+                    <h4>Alconost + DeNA Partnership</h4>
+                    <p>Press Release</p>
+                </div>
+            </div>
+            <div class="spotlight-item animate-in">
+                <div class="spotlight-icon">🚀</div>
+                <div class="spotlight-content">
+                    <h4>Alconost.MT Launch</h4>
+                    <p>Press Release</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Logos -->
+    <section class="customer-logos">
+        <div class="logos-container">
+            <div>Clutch</div>
+            <div>INC5000</div>
+            <div>ATA</div>
+            <div>G2</div>
+            <div>GALA</div>
+            <div>ISO</div>
+            <div>Slator</div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="order" class="order-form">
+        <div class="form-container animate-in">
+            <h2>Ready to Go Global? 🌍</h2>
+            <p class="subheading">Let's make it happen — in 120+ languages.</p>
+            
+            <form>
+                <div class="form-group">
+                    <label>How can we help?</label>
+                    <textarea rows="4" placeholder="I need to localize my app into 40 languages..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Upload files</label>
+                    <input type="file" multiple>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your name</label>
+                    <input type="text" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your email</label>
+                    <input type="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your number with country code</label>
+                    <input type="tel" placeholder="+370" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Where did you hear about Alconost?</label>
+                    <select required>
+                        <option value="">Select an option</option>
+                        <option>Google Search</option>
+                        <option>LinkedIn</option>
+                        <option>Referral</option>
+                        <option>Conference/Event</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-checkbox">
+                    <input type="checkbox" id="agree" required>
+                    <label for="agree">I agree to the Terms of Service and Privacy Policy</label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="alconost-logo.svg" alt="Alconost Logo" style="height: 40px; filter: brightness(0) invert(1);">
+            </div>
+            <div class="footer-links">
+                <a href="#">Services</a>
+                <a href="#">Case Studies</a>
+                <a href="#">Technology</a>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-tagline">
+                Made with ❤️ for global brands worldwide
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Filter tabs functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn?.addEventListener('click', () => {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            navMenu.style.position = 'absolute';
+            navMenu.style.top = '100%';
+            navMenu.style.left = '0';
+            navMenu.style.right = '0';
+            navMenu.style.background = 'white';
+            navMenu.style.flexDirection = 'column';
+            navMenu.style.padding = '1rem';
+            navMenu.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+        });
+
+        // Form submission
+        document.querySelector('form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your interest! We\'ll get back to you within 24 hours.');
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'var(--shadow-sm)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
